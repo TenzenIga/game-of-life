@@ -11,7 +11,7 @@ onClick(){
   render(){
 
 
-  let style = this.props.value?{backgroundColor:'gold'}:{backgroundColor:'none'};
+  let style = this.props.value?{backgroundColor:'gold'}:{backgroundColor:'white'};
 
    return (
      <div className="cell" style={style} onClick ={this.onClick} ></div>
