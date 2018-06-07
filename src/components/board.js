@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import Cell from './cell';
+import { connect } from 'react-redux';
+import {changeCell, updateGrid } from '../actions/grid-actions';
 
  class Board extends Component {
    constructor(props){
      super(props);
 
-     this.state = {
+    /* this.state = {
       grid : Array(30).fill(Array(50).fill(false)),
       generation:0
      }
-     this.handleClick = this.handleClick.bind(this);
+     this.handleClick = this.handleClick.bind(this); */
 }
-    handleClick(col, row){
+
+/*    handleClick(col, row){
       let grid = JSON.parse(JSON.stringify(this.state.grid));
       console.log(`${col}-${row}`);
       grid[col][row] = !grid[col][row];
@@ -64,8 +67,10 @@ import Cell from './cell';
       generation:this.state.generation+1
     })
 }
+
+
 firstGeneration=()=>{
-  let grid = JSON.parse(JSON.stringify(this.state.grid));
+  let grid = JSON.parse(JSON.stringify(this.props.grid));
   //let grid = this.state.grid.map(array => array.slice());
   for (let i = 0; i < grid.length; i++) {
     for (let j = 1; j < grid[i].length; j++) {
@@ -80,25 +85,41 @@ firstGeneration=()=>{
 }
 componentDidMount(){
   this.firstGeneration();
-  this.timerId = setInterval(this.play, 500);
+  //this.timerId = setInterval(this.play, 100);
 
 }
+*/
+handleClick = (col, row)=>{
 
+     this.props.onChangeCell(col, row)
+   }
+upGen =()=>{
+  this.props.onUpdateGrid();
+}
   render(){
-    let {grid} = this.state;
-    const arr = grid.map((k, index) =>
-       k.map((key, index2) =>
-         < Cell key={index + index2} handleClick={this.handleClick} col={index} row={index2} value={key}/>
-     )
-  )
+    let {grid} = this.props;
+  let arr = grid.map((col, colInx)=>{
+        return col.map((cell, cellInx) =>{
+          return <Cell key={colInx + cellInx} onClick={(e)=>this.handleClick(colInx, cellInx,e)} value={cell}/>
+        })
+      })
 
-    return(<div>
+  return(
+    <div>
+      <button onClick={this.upGen}>Up</button>
       <div className="board">{arr}</div>
-      <h3>{this.state.generation}</h3>
   </div>
 
     );
   }
 }
 
-export default Board;
+const mapStatesToProps = state =>({
+ grid:state.grid
+});
+
+const mapActionsToProps ={
+  onChangeCell: changeCell,
+  onUpdateGrid:updateGrid
+}
+export default connect(mapStatesToProps, mapActionsToProps)(Board);
