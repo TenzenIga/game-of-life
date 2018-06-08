@@ -2,7 +2,7 @@ export const PLAY = 'PLAY';
 export const RANDOMIZE = 'RANDOMIZE';
 export const CHANGE_CELL = 'CHANGE_CELL';
 
-export function updateGrid(newUser){
+export function updateGrid(grid){
   return {
     type: PLAY
   };
@@ -17,12 +17,9 @@ export function changeCell(col, row){
     }
   };
 }
-export function randomGrid(){
+export function randomize(){
 
   return{
-    type: RANDOMIZE,
-    payload:{
-
-    }
+    type: RANDOMIZE
   }
 }

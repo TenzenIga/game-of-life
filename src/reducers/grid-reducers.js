@@ -1,6 +1,6 @@
-import { PLAY, CHANGE_CELL } from '../actions/grid-actions';
+import { PLAY, CHANGE_CELL, RANDOMIZE } from '../actions/grid-actions';
 
-export default function gridReducer( state=[], {type, payload}){
+export default function gridReducer( state={}, {type, payload}){
   switch (type) {
     case PLAY:
       return checkNeighbours(state);
@@ -10,15 +10,28 @@ export default function gridReducer( state=[], {type, payload}){
       grid[payload.col][payload.row] = !grid[payload.col][payload.row];
       return grid;
       break;
+      case RANDOMIZE:
+      return randomize(state);
+      break;
     default:
     return state;
   }
 }
 
-//Check if cell alive
-function isAlive(cell) {
-  return cell;
+function randomize(grid){
+  let base = Array(30).fill(Array(50).fill(false));
+  let newGrid = base.map(col =>{
+    return col.map(cell => {
+      if(Math.floor(Math.random()*4) === 2){
+        cell = true;
+      }
+      return cell;
+    })
+  })
+  return newGrid;
 }
+
+//check neighbours
 function checkNeighbours(currGrid){
 let colLen = 30;
 let rowLen = 50;

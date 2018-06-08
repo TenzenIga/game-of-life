@@ -6,14 +6,17 @@ import registerServiceWorker from './registerServiceWorker';
 import { combineReducers, createStore } from 'redux';
 import  {Provider} from 'react-redux';
 import gridReducer from './reducers/grid-reducers';
-
+import speedReducer from './reducers/speed-reducers';
 
 const allReducers = combineReducers({
-  grid: gridReducer
+  grid: gridReducer,
+  speed:speedReducer
 })
 
 const store = createStore(allReducers, {
-  grid:Array(30).fill(Array(50).fill(false))
+  grid:Array(30).fill(Array(50).fill(false)),
+  speed:300,
+  generation:0
 },
 window.devToolsExtension && window.devToolsExtension()
 );
