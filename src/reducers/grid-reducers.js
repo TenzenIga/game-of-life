@@ -1,4 +1,4 @@
-import { PLAY, CHANGE_CELL, RANDOMIZE } from '../actions/grid-actions';
+import { PLAY, CHANGE_CELL, RANDOMIZE, RESET } from '../actions/grid-actions';
 
 export default function gridReducer( state={}, {type, payload}){
   switch (type) {
@@ -13,6 +13,9 @@ export default function gridReducer( state={}, {type, payload}){
       case RANDOMIZE:
       return randomize(state);
       break;
+      case RESET:
+        return state.map(key => key.map( cell => cell=false));
+        break;
     default:
     return state;
   }
