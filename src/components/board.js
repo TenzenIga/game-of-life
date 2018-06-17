@@ -25,6 +25,7 @@ handleClick = (col, row)=>{
 upGen =()=>{
 
   let {speed} = this.props;
+  clearTimeout(this.timerId);
 setTimeout(function run() {
   this.props.onUpdateGrid()
   this.timerId = setTimeout(run.bind(this), speed);

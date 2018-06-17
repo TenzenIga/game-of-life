@@ -22,12 +22,7 @@ window.devToolsExtension && window.devToolsExtension()
 );
 
 
-const mapStateToProps = (state) =>{
-  console.log(state);
-  return {
-    grid:state.grid
-  };
-}
+
 
 
 
