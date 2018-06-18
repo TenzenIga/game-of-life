@@ -7,10 +7,12 @@ import { combineReducers, createStore } from 'redux';
 import  {Provider} from 'react-redux';
 import gridReducer from './reducers/grid-reducers';
 import speedReducer from './reducers/speed-reducers';
+import generationReducer from './reducers/generations-reducer';
 
 const allReducers = combineReducers({
   grid: gridReducer,
-  speed:speedReducer
+  speed:speedReducer,
+  generation:generationReducer
 })
 
 const store = createStore(allReducers, {

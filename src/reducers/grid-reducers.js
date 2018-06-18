@@ -4,18 +4,18 @@ export default function gridReducer( state={}, {type, payload}){
   switch (type) {
     case PLAY:
       return checkNeighbours(state);
-      break;
+
     case CHANGE_CELL:
       let grid = JSON.parse(JSON.stringify(state));
       grid[payload.col][payload.row] = !grid[payload.col][payload.row];
       return grid;
-      break;
+
       case RANDOMIZE:
       return randomize(state);
-      break;
+
       case RESET:
         return state.map(key => key.map( cell => cell=false));
-        break;
+      
     default:
     return state;
   }
