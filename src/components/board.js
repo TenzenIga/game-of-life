@@ -21,11 +21,12 @@ upGen =()=>{
 
   let {speed} = this.props;
   clearTimeout(this.timerId);
-setTimeout(function run() {
+/*setTimeout(function run() {
   this.props.onUpdateGrid();
   this.props.onUpdateGeneration();
   this.timerId = setTimeout(run.bind(this), speed);
-}.bind(this), speed);
+}.bind(this), speed); */
+this.timerId = setInterval(()=>this.props.onUpdateGrid(),speed)
 }
 
 createRandomGrid = ()=>{
@@ -47,12 +48,11 @@ changeSpeed = (event) =>{
           return <Cell key={colInx + cellInx} onClick={(e)=>this.handleClick(colInx, cellInx,e)} value={cell}/>
         })
       })
-      console.log(this.props);
   return(
     <div>
       <button onClick={this.upGen}>Start</button>
       <button onClick={this.reset}>Reset</button>
-      <button onClick={this.createRandomGrid}>Rondomize</button>
+      <button onClick={this.props.onRandomize}>Randomize</button>
       <div className='input-container'>
         <input
       id="typeinp"
@@ -63,7 +63,7 @@ changeSpeed = (event) =>{
       step="100" />
       </div>
       <p>Speed-{this.props.speed}</p>
-      <p>Generation: {this.props.generation}</p>
+      <p>Generation {this.props.generation}</p>
       <div className="board">{arr}</div>
 
   </div>

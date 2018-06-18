@@ -19,8 +19,7 @@ const store = createStore(allReducers, {
   grid:Array(30).fill(Array(50).fill(false)),
   speed:300,
   generation:0
-},
-window.devToolsExtension && window.devToolsExtension()
+}
 );
 
 

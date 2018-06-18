@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const Cell = (props)=>{
   let style = props.value?{backgroundColor:'gold'}:{backgroundColor:'white'};
