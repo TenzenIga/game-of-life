@@ -4,7 +4,7 @@ import Buttons from './buttons';
 import { connect } from 'react-redux';
 import {changeCell, updateGrid, randomize, reset } from '../actions/grid-actions';
 import { changeSpeed } from '../actions/speed-actions';
-import { updateGeneration } from '../actions/generations-actions';
+import { Grid, Row, Col, Clearfix, Jumbotron, Well} from 'react-bootstrap';
  class Board extends Component {
    constructor(props){
 
@@ -29,7 +29,6 @@ upGen =()=>{
 }.bind(this), speed); */
 this.timerId = setInterval(()=>{
   this.props.onUpdateGrid();
-  //this.props.onUpdateGeneration();
 },speed)
 }
 
@@ -42,17 +41,11 @@ reset= ()=>{
 changeSpeed = (event) =>{
   this.props.onChangeSpeed(event.target.value)
   clearTimeout(this.timerId);
-/*setTimeout(function run() {
-  this.props.onUpdateGrid();
-  this.props.onUpdateGeneration();
-  this.timerId = setTimeout(run.bind(this), speed);
-}.bind(this), speed); */
   if (this.timerId === null) {
     return;
   }
  this.timerId = setInterval(()=>{
  this.props.onUpdateGrid();
-//this.props.onUpdateGeneration();
 }
  ,event.target.value)
 
@@ -66,24 +59,40 @@ changeSpeed = (event) =>{
         })
       })
   return(
-    <div >
-     <Buttons play={()=>this.upGen()} randomize={()=>this.props.onRandomize()} reset={()=>this.reset()} />
-      <div className='input-container'>
-        <input
-      id="typeinp"
-      type="range"
-      min="100" max="1000"
-      value={this.props.speed}
-      onChange={this.changeSpeed}
-      step="100" />
-      </div>
+    <Grid >
+      <Well>
+        <h1 className="header text-center">Game of Life</h1>
+          <Row>
+            <Col lg={6} md={6}>
+              <Buttons play={()=>this.upGen()} randomize={()=>this.props.onRandomize()} reset={()=>this.reset()} />
+            </Col>
+            <Col lg={6} md={6}>
+            <div className='input-container'>
+               <input
+                 className="slider"
+             id="typeinp"
+             type="range"
+             min="100" max="1000"
+             value={this.props.speed}
+             onChange={this.changeSpeed}
+             step="100" />
+             </div>
+           </Col>
+          </Row>
+          <Row>
+            <Col lg={8} >
+              <div className="board">{arr}</div>
+            </Col>
+            <Col lg={4} >
+              <div className="data-table">
+                <p>Speed:{this.props.speed} ms</p>
+                <p>Generation:{this.props.generation}</p>
+              </div>
 
-
-      <p>Speed-{this.props.speed}</p>
-      <p>Generation {this.props.generation}</p>
-      <div className="board">{arr}</div>
-
-  </div>
+            </Col>
+          </Row>
+      </Well>
+</Grid>
 
     );
   }
@@ -100,8 +109,7 @@ const mapActionsToProps ={
   onUpdateGrid:updateGrid,
   onRandomize:randomize,
   onReset:reset,
-  onChangeSpeed: changeSpeed,
-  onUpdateGeneration: changeCell
+  onChangeSpeed: changeSpeed
 }
 
 export default connect(mapStatesToProps, mapActionsToProps)(Board);

@@ -17,6 +17,7 @@ export function changeCell(col, row){
     }
   };
 }
+
 export function randomize(){
 
   return{
