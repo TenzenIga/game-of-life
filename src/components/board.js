@@ -78,7 +78,6 @@ changeSpeed = (event) =>{
             </Col>
             <Col lg={4} >
               <Data speed={this.props.speed} generation={this.props.generation} />
-
             </Col>
           </Row>
       </Well>
