@@ -6,7 +6,7 @@ import Data from './data.js';
 import { connect } from 'react-redux';
 import {changeCell, updateGrid, randomize, reset } from '../actions/grid-actions';
 import { changeSpeed } from '../actions/speed-actions';
-import { Grid, Row, Col, Clearfix, Jumbotron, Well} from 'react-bootstrap';
+import { Grid, Row, Col, Well} from 'react-bootstrap';
  class Board extends Component {
    constructor(props){
 

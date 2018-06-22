@@ -4,7 +4,6 @@ export default function speedReducer(state='', {type, payload}){
   switch (type) {
     case CHANGE_SPEED:
       return payload.value;
-      break;
     default:
       return state;
   }
