@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Cell from './cell';
+import Input from './range-input';
 import Buttons from './buttons';
+import Data from './data.js';
 import { connect } from 'react-redux';
 import {changeCell, updateGrid, randomize, reset } from '../actions/grid-actions';
 import { changeSpeed } from '../actions/speed-actions';
@@ -67,16 +69,7 @@ changeSpeed = (event) =>{
               <Buttons play={()=>this.upGen()} randomize={()=>this.props.onRandomize()} reset={()=>this.reset()} />
             </Col>
             <Col lg={6} md={6}>
-            <div className='input-container'>
-               <input
-                 className="slider"
-             id="typeinp"
-             type="range"
-             min="100" max="1000"
-             value={this.props.speed}
-             onChange={this.changeSpeed}
-             step="100" />
-             </div>
+            <Input speed={this.props.speed} changeSpeed={(e)=>this.changeSpeed(e)} />
            </Col>
           </Row>
           <Row>
@@ -84,10 +77,7 @@ changeSpeed = (event) =>{
               <div className="board">{arr}</div>
             </Col>
             <Col lg={4} >
-              <div className="data-table">
-                <p>Speed:{this.props.speed} ms</p>
-                <p>Generation:{this.props.generation}</p>
-              </div>
+              <Data speed={this.props.speed} generation={this.props.generation} />
 
             </Col>
           </Row>
