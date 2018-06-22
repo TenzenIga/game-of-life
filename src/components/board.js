@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Cell from './cell';
+import Buttons from './buttons';
 import { connect } from 'react-redux';
 import {changeCell, updateGrid, randomize, reset } from '../actions/grid-actions';
 import { changeSpeed } from '../actions/speed-actions';
@@ -26,19 +27,35 @@ upGen =()=>{
   this.props.onUpdateGeneration();
   this.timerId = setTimeout(run.bind(this), speed);
 }.bind(this), speed); */
-this.timerId = setInterval(()=>this.props.onUpdateGrid(),speed)
+this.timerId = setInterval(()=>{
+  this.props.onUpdateGrid();
+  //this.props.onUpdateGeneration();
+},speed)
 }
 
-createRandomGrid = ()=>{
-  this.props.onRandomize();
-}
 
 reset= ()=>{
   this.props.onReset();
-  clearTimeout(this.timerId);
+  clearInterval(this.timerId);
+  this.timerId = null;
 }
 changeSpeed = (event) =>{
   this.props.onChangeSpeed(event.target.value)
+  clearTimeout(this.timerId);
+/*setTimeout(function run() {
+  this.props.onUpdateGrid();
+  this.props.onUpdateGeneration();
+  this.timerId = setTimeout(run.bind(this), speed);
+}.bind(this), speed); */
+  if (this.timerId === null) {
+    return;
+  }
+ this.timerId = setInterval(()=>{
+ this.props.onUpdateGrid();
+//this.props.onUpdateGeneration();
+}
+ ,event.target.value)
+
 }
 
   render(){
@@ -49,10 +66,8 @@ changeSpeed = (event) =>{
         })
       })
   return(
-    <div>
-      <button onClick={this.upGen}>Start</button>
-      <button onClick={this.reset}>Reset</button>
-      <button onClick={this.props.onRandomize}>Randomize</button>
+    <div >
+     <Buttons play={()=>this.upGen()} randomize={()=>this.props.onRandomize()} reset={()=>this.reset()} />
       <div className='input-container'>
         <input
       id="typeinp"
@@ -62,6 +77,8 @@ changeSpeed = (event) =>{
       onChange={this.changeSpeed}
       step="100" />
       </div>
+
+
       <p>Speed-{this.props.speed}</p>
       <p>Generation {this.props.generation}</p>
       <div className="board">{arr}</div>
@@ -84,7 +101,7 @@ const mapActionsToProps ={
   onRandomize:randomize,
   onReset:reset,
   onChangeSpeed: changeSpeed,
-  onUpdateGeneration: updateGeneration
+  onUpdateGeneration: changeCell
 }
 
 export default connect(mapStatesToProps, mapActionsToProps)(Board);

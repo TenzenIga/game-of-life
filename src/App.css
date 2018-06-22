@@ -1,17 +1,17 @@
 .board{
   width: 750px;
-
   margin: 20px auto;
   padding: 0;
   line-height: 0;
-
 }
-
+body{
+  background-color: #0d0d0d;
+}
 .cell{
   display: inline-block;
-  width: 14px;
-  height: 14px;
-  border: 1px solid black;
+  width: 16px;
+  height: 16px;
+  border: 1px solid silver;
   margin-left: -1px;
   margin-bottom: -1px;
 }

@@ -1,5 +1,5 @@
 import { PLAY, CHANGE_CELL, RANDOMIZE, RESET } from '../actions/grid-actions';
-
+import {HEIGHT , WIDTH } from '../index';
 export default function gridReducer( state={}, {type, payload}){
   switch (type) {
     case PLAY:
@@ -15,14 +15,14 @@ export default function gridReducer( state={}, {type, payload}){
 
       case RESET:
         return state.map(key => key.map( cell => cell=false));
-      
+
     default:
     return state;
   }
 }
 
 function randomize(grid){
-  let base = Array(30).fill(Array(50).fill(false));
+  let base = Array(HEIGHT).fill(Array(WIDTH).fill(false));
   let newGrid = base.map(col =>{
     return col.map(cell => {
       if(Math.floor(Math.random()*4) === 2){
@@ -36,16 +36,14 @@ function randomize(grid){
 
 //check neighbours
 function checkNeighbours(currGrid){
-let colLen = 30;
-let rowLen = 50;
 let grid = JSON.parse(JSON.stringify(currGrid));
 let newGrid = JSON.parse(JSON.stringify(currGrid));
-for (let col = 0; col < colLen; col++) {
-  for (let cell = 0; cell < rowLen; cell++) {
-    let topCol = fixFirstOrLastCells(col+1, colLen);
-    let bottomCol = fixFirstOrLastCells(col-1, colLen);
-    let cellFromLeft = fixFirstOrLastCells(cell-1, rowLen);
-    let cellFromRight = fixFirstOrLastCells(cell+1, rowLen);
+for (let col = 0; col < HEIGHT; col++) {
+  for (let cell = 0; cell < WIDTH; cell++) {
+    let topCol = fixFirstOrLastCells(col+1, HEIGHT);
+    let bottomCol = fixFirstOrLastCells(col-1, HEIGHT);
+    let cellFromLeft = fixFirstOrLastCells(cell-1, WIDTH);
+    let cellFromRight = fixFirstOrLastCells(cell+1, WIDTH);
     let count = 0;
         if(grid[col][cellFromLeft]){ //cell from lef side
           count++;

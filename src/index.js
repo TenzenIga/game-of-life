@@ -9,6 +9,8 @@ import gridReducer from './reducers/grid-reducers';
 import speedReducer from './reducers/speed-reducers';
 import generationReducer from './reducers/generations-reducer';
 
+export const WIDTH = 50;
+export const HEIGHT = 30;
 const allReducers = combineReducers({
   grid: gridReducer,
   speed:speedReducer,
@@ -16,7 +18,7 @@ const allReducers = combineReducers({
 })
 
 const store = createStore(allReducers, {
-  grid:Array(30).fill(Array(50).fill(false)),
+  grid:Array(HEIGHT).fill(Array(WIDTH).fill(false)),
   speed:300,
   generation:0
 }
